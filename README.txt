@@ -22,10 +22,10 @@ FILES:
 
 This file was for my final project, concerning the "elliptic-theta one-dimensional 
 lattice" model. This project became the paper "Bound states in the Brillouin zone 
-continuum." (https://doi.org/10.1016/j.physb.2019.06.057) In this file I construct a 
-Hamiltonian matrix corresponding to the potential term in our Hamiltonian, which among my 
-group's code we called 'VV1'. This file outputs the resulting VV1 (which can get very 
-large, up to the gigabyte scale) to be read in by another file and used to construct the 
+continuum" (https://doi.org/10.1016/j.physb.2019.06.057). In this file I construct a 
+Hamiltonian matrix corresponding to the potential term in our Hamiltonian, which my group
+called 'VV1'. This file outputs the resulting VV1 (which can get very large, up to the 
+gigabyte scale) to be read in by another Mathematica notebook and used to construct the 
 quantum eigenstates of the system.
 
 TEST
