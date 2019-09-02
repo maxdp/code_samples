@@ -97,11 +97,11 @@ pointsArray =(*Parallel*)Table[
          yi = trenchYofX[xi];(*starting on SOS*)
                   
          If[En - Abs[pxi]^2 < V[xi, yi], 
-          Null, (*throw out unphysical cases*)(*TESTING!!*)
+          Null, (*throw out unphysical cases*)
           
           Clear[pyi];
           pyirules = Solve[pxi^2 + pyi^2 + V[xi, yi] == En, pyi];(*,
-          WorkingPrecision\[Rule]highPrec*)
+          WorkingPrecision->highPrec*)
           
           pyi = Chop[Evaluate[pyi /. pyirules[[2]]], 
             10^-15]; (*Using [[2]] because it has pyi>0*)
@@ -115,7 +115,7 @@ pointsArray =(*Parallel*)Table[
           sol1 = NDSolve[{eqnx, eqnpx, eqny, eqnpy, x[0] == xi, 
              px[0] == pxi, y[0] == yi, py[0] == pyi}, {x, px, y, 
              py}, {t, 0, tmax}, MaxSteps -> 10000000, 
-            MaxStepSize -> 0.001(*,WorkingPrecision\[Rule]prec-1*)];(* 
+            MaxStepSize -> 0.001(*,WorkingPrecision->prec-1*)];(* 
           SMALL ee or E=Vmax => use MaxStepSize *)
           
           sol = sol1[[1]];
@@ -133,30 +133,22 @@ pointsArray =(*Parallel*)Table[
            
            Quiet[  (*CHANGE FOR 3-PEAK VS 1-PEAK AND BUMP VS WELL*)
   
-                      root = FindRoot[
+            root = FindRoot[
               
-              Abs@(* for bump *)
-                 y[t] - 
-                Abs@Mod[trenchYofX[x[t]], 2 a, -a] == 0 (* 
-              repeat below *)
-              , {t, t0}(*,
-              WorkingPrecision\[Rule]Precision@y[t0]*)];
+              Abs@y[t] - Abs@Mod[trenchYofX[x[t]], 2 a, -a] == 0 (* repeat below *)
+              , {t, t0}];
             t1 = Evaluate[t /. root];
             
             
-            If[(*t0-dt/2\[LessEqual]t1<t0+dt/2 &&*)
-             t1 >= 0 && t1 <= tmax
-              && 
+            If[t1 >= 0 && t1 <= tmax && 
               Round[Abs@y[t1] - Abs@Mod[trenchYofX[x[t1]], 2 a, -a], 
-                10^-2 a] == 0,(* copy from above, add Round, 
-             and change t\[Rule]t1 *)
-             
+                10^-2 a] == 0,
              AppendTo[roots, Chop[t1]]]
             ]
            ];
           roots = Sort[DeleteDuplicates[roots, #1 == #2 &]];
           
-          (*sample for debugging*)
+          (* sample results for debugging *)
           
           If[{xi, pxi} == {xSample, pxSample},
 
@@ -171,16 +163,7 @@ pointsArray =(*Parallel*)Table[
           
           pointsPart = {};
           For[i = 1, i <= Length[roots], i++,
-           (*If[Chop[Re[py[roots[[i]]]]]>0,(*only use py>
-           0 to avoid a mirror image*)
-           AppendTo[
-           pointsPart,{Chop[Re[x[roots[[i]]]]],Chop[Re[px[roots[[
-           i]]]]]/Sqrt[En]}];
-           ];*)
-           (*borrowed from my Horsley-
-           reproducing code*)
            t1 = roots[[i]];
-           
            s = trenchSofXmod[
              x[t1]];(*CAREFUL about what SofX function is here*)
       theta1 = ArcTan[dtrench[x[t1]]];
@@ -193,10 +176,8 @@ pointsArray =(*Parallel*)Table[
            p = Sqrt[px[t1]^2 + py[t1]^2];
            ps = p Cos[theta2 - theta1];
            ptrans = p Sin[theta2 - theta1];
-           (*Print[{"1:",ptrans,s,t1}];*)
+           
            If[ptrans > 0,
-            (*Print[{"2:",ptrans,s,t1}];*)
-            
             AppendTo[pointsPart, {s, ps(*/Sqrt[EnMod]*)}];
             ]
            ];
@@ -210,14 +191,12 @@ pointsArray =(*Parallel*)Table[
      Print["Finished E=", En];
      
      pointsOrig = points;
-     points = Flatten[points, 0];(* flatten 0 for xpxpair, 1 for xi,
-     pxi *)
+     points = Flatten[points, 0];(* flatten 0 for xpxpair, 1 for xi, pxi *)
      points
      , {En, EnList}]; // Timing // AbsoluteTiming
      
 pointsArray = 
-  Table[Select[pointsArray[[j]], # =!= Null &], {j, 1, 
-    Length[pointsArray]}];
+  Table[Select[pointsArray[[j]], # =!= Null &], {j, 1, Length[pointsArray]}];
 
 
 
