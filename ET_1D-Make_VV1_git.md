@@ -64,8 +64,6 @@ Vzmat //MatrixForm (* print *)
 (* combine to make whole V-matrix *)
 (* using V0=0 to skip doing the V0 term -- if V0!=0 I'll need to add that term *)
 VmatS = SparseArray@Flatten[ParallelTable[Flatten@Table[
-         (* note no U0 here, it's in "S and Heff" *)
-         
          Vxmat[[nx - nxp + 2 Nt + 1]] Vzmat[[nz + 1, nzp + 1]]
          , {nx, -Nt, Nt}, {nz, 0, Nt}], {nxp, -Nt, Nt}, {nzp, 0, Nt}],
        1]; // Timing // AbsoluteTiming
