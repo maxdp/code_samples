@@ -3,6 +3,7 @@ CODE SAMPLES FROM PHD WORK
 ------------------------------
 
 First committed to git by Max D. Porter on 8/29/19
+
 Last updated on 9/1/19
 
 In this directory are some code samples that show my coding ability. The samples are taken 
