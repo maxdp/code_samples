@@ -1,10 +1,11 @@
 
 CODE SAMPLES FROM PHD WORK
 ------------------------------
+NOTE: Look at .md files, not .nb!
 
 First committed to git by Max D. Porter on 8/29/19
 
-Last updated on 9/1/19
+Last updated on 9/19/19
 
 In this directory are some code samples that show my coding ability. The samples are taken 
 from throughout the five years of my physics PhD (2014-2019) at the University of Texas at 
