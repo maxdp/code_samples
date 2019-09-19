@@ -9,7 +9,11 @@ Last updated on 9/1/19
 In this directory are some code samples that show my coding ability. The samples are taken 
 from throughout the five years of my physics PhD (2014-2019) at the University of Texas at 
 Austin. All code is written 100% on my own. The code is all Mathematica (Wolfram 
-Language), which is difficult to combine with control version systems. As such the files 
+Language), as I don't have code in other languages from previous employers which I can
+share. I would be happy to demonstrate my coding ability in another language, and can
+learn new languages very quickly.
+
+Mathematica is difficult to combine with control version systems. As such the files 
 have been converted from their original notebook format (.nb) that possessed output, 
 figures, and better formatting to a simpler markdown (.md) file that displays well on 
 GitHub. Separations between 'cells' (chunks of input) have been lost by this, and some 
